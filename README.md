@@ -37,7 +37,3 @@ React, Typescript, Zustand, React Final Form, Blueprint, Emotion CSS.
 [Passport](http://www.passportjs.org/) <br />
 [Emotion CSS](https://emotion.sh/docs/introduction) <br />
 [Prisma](https://www.prisma.io/docs/orm/overview/introduction) <br />
-
-```
-
-```
