@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int     @id @default(autoincrement())
+  name       String?
+  email      String  @unique
+  password   String
+  isVerified Boolean @default(false) @map("is_verified")
+
+  todos Todo[]
+
+  @@map("user")
+}
+
+enum VisibilityOptions {
+  PUBLIC
+  PRIVATE
+}
+
+enum StatusOptions {
+  COMPLETED
+  INCOMPLETE
+}
+
+model Todo {
+  id          Int               @id @default(autoincrement())
+  title       String
+  description String
+  status      StatusOptions     @default(INCOMPLETE) @map("status")
+  visibility  VisibilityOptions @default(PUBLIC) @map("visibility")
+  createdAt   DateTime          @default(now()) @map("created_at")
+  updatedAt   DateTime          @updatedAt @map("updated_at")
+
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+
+  @@map("todo")
+}

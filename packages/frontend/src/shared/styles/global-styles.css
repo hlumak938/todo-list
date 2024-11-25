@@ -1,0 +1,51 @@
+body {
+	margin: 0;
+	background-color: #1e1e2e;
+	overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	display: block;
+	text-decoration: none;
+}
+
+ul,
+ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+button {
+	outline: none !important;
+}
+
+input {
+	outline: none !important;
+	border: none;
+}
+
+.hidden-el {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	border: 0;
+	padding: 0;
+	clip: rect(0 0 0 0);
+	overflow: hidden;
+}

@@ -1,0 +1,26 @@
+{
+	"typeRoots": ["@types/node", "./src/types"],
+	"compilerOptions": {
+		"strict": true,
+		"module": "CommonJS",
+		"declaration": true,
+		"removeComments": true,
+		"allowSyntheticDefaultImports": true,
+		"skipLibCheck": true,
+		"target": "ES2018",
+		"sourceMap": true,
+		"esModuleInterop": true,
+		"strictPropertyInitialization": false,
+		"moduleResolution": "Node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"outDir": "./dist",
+		"baseUrl": ".",
+		"noImplicitAny": true,
+		"paths": {
+			"@/*": ["./src/*"],
+		},
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules"]
+}
