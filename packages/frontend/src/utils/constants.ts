@@ -7,9 +7,9 @@ export const DEFAULT_FORM_VALUES = {
 	isComplete: false,
 };
 
-export const SLIDER_SETTINGS = {
+export const SLIDER_SETTINGS = (itemsLength: number): any => ({
 	dots: true,
-	infinite: true,
+	infinite: itemsLength > 1,
 	speed: 500,
 	slidesToShow: 1,
 	slidesToScroll: 1,
@@ -24,4 +24,4 @@ export const SLIDER_SETTINGS = {
 			},
 		},
 	],
-};
+});

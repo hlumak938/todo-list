@@ -17,30 +17,47 @@ export default class TodoService {
 		page: number = 1,
 		pageSize: number = 10,
 	): Promise<{ todos: Todo[]; total: number }> {
-		const filters: Prisma.TodoWhereInput = {};
+		const filters: Prisma.TodoWhereInput = {
+			AND: [],
+		};
 
+		// Фильтр по текстовому поиску
 		if (search) {
-			filters.OR = [
-				{ title: { contains: search, mode: 'insensitive' } },
-				{ description: { contains: search, mode: 'insensitive' } },
-			];
+			(filters.AND as Prisma.TodoWhereInput[]).push({
+				OR: [
+					{ title: { contains: search, mode: 'insensitive' } },
+					{ description: { contains: search, mode: 'insensitive' } },
+				],
+			});
 		}
 
+		// Фильтр по статусу
 		if (status) {
-			filters.status = status;
+			(filters.AND as Prisma.TodoWhereInput[]).push({ status });
 		}
 
-		if (visibility) {
-			filters.visibility = visibility;
-		}
-
+		// Фильтр по видимости и доступу
 		if (userId) {
-			filters.OR = [
-				{ userId: userId },
-				{ visibility: VisibilityOptions.PUBLIC },
-			];
+			(filters.AND as Prisma.TodoWhereInput[]).push({
+				OR: [
+					{ visibility: VisibilityOptions.PUBLIC },
+					{
+						AND: [
+							{ visibility: VisibilityOptions.PRIVATE },
+							{ userId },
+						],
+					},
+				],
+			});
 		} else {
-			filters.visibility = VisibilityOptions.PUBLIC;
+			(filters.AND as Prisma.TodoWhereInput[]).push({
+				visibility: VisibilityOptions.PUBLIC,
+			});
+		}
+
+		// Если задан фильтр по видимости, учитываем его отдельно
+		if (visibility) {
+			(filters.AND as Prisma.TodoWhereInput[]).push({ visibility });
 		}
 
 		const [todos, total] = await Promise.all([
@@ -50,7 +67,9 @@ export default class TodoService {
 				skip: (page - 1) * pageSize,
 				take: pageSize,
 			}),
-			this.prisma.todo.count({ where: filters }),
+			this.prisma.todo.count({
+				where: filters,
+			}),
 		]);
 
 		return { todos, total };

@@ -10,28 +10,34 @@ import ProfilePage from '~pages/profile/ProfilePage';
 import ForgotPasswordPage from '~pages/forgot/ForgotPasswordPage';
 import ResetPasswordPage from '~pages/reset/ResetPasswordPage';
 import EmailVerificationPage from '~pages/verify/EmailVerificationPage';
+import PublicRoute from '~router/PublicRoute';
 
 export const router = createBrowserRouter(
 	[
 		{
-			path: PUBLIC_ROUTER_KEYS.LOGIN,
-			Component: LoginPage,
-		},
-		{
-			path: PUBLIC_ROUTER_KEYS.REGISTER,
-			Component: RegisterPage,
+			Component: PublicRoute,
+			children: [
+				{
+					path: PUBLIC_ROUTER_KEYS.LOGIN,
+					Component: LoginPage,
+				},
+				{
+					path: PUBLIC_ROUTER_KEYS.REGISTER,
+					Component: RegisterPage,
+				},
+				{
+					path: PUBLIC_ROUTER_KEYS.FORGOT_PASSWORD,
+					Component: ForgotPasswordPage,
+				},
+				{
+					path: PUBLIC_ROUTER_KEYS.RESET_PASSWORD,
+					Component: ResetPasswordPage,
+				},
+			],
 		},
 		{
 			path: PUBLIC_ROUTER_KEYS.VERIFY_EMAIL,
 			Component: EmailVerificationPage,
-		},
-		{
-			path: PUBLIC_ROUTER_KEYS.FORGOT_PASSWORD,
-			Component: ForgotPasswordPage,
-		},
-		{
-			path: PUBLIC_ROUTER_KEYS.RESET_PASSWORD,
-			Component: ResetPasswordPage,
 		},
 		{
 			Component: PrivateRoute,

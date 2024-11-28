@@ -10,6 +10,7 @@ import {
 
 interface ITodoStore {
 	todos: ITodo[];
+	currentTodo: ITodo | undefined;
 	total: number;
 	page: number;
 	pageSize: number;
@@ -20,7 +21,7 @@ interface ITodoStore {
 	setPageSize: (newPageSize: number) => void;
 	setFilters: (newFilters: Filters) => void;
 	fetchTodos: (isInfiniteScroll: boolean) => Promise<void>;
-	getTodoById: (id: number) => ITodo | undefined;
+	getTodoById: (id: number) => Promise<void>;
 	addTodo: (todo: CreateTodo) => Promise<void>;
 	updateTodo: (id: number, updates: Partial<ITodo>) => Promise<void>;
 	deleteTodo: (id: number) => Promise<void>;
@@ -28,6 +29,7 @@ interface ITodoStore {
 
 export const useTodoStore = create<ITodoStore>((set, get) => ({
 	todos: [],
+	currentTodo: undefined,
 	total: 0,
 	page: 1,
 	pageSize: 7,
@@ -82,9 +84,26 @@ export const useTodoStore = create<ITodoStore>((set, get) => ({
 		}
 	},
 
-	getTodoById: (id: number): ITodo => {
+	getTodoById: async (id: number): Promise<void> => {
 		const { todos } = get();
-		return todos.find((todo) => todo.id === id);
+
+		const todoById = todos.find((todo) => todo.id === id);
+		if (todoById) {
+			set({ currentTodo: todoById });
+			return;
+		}
+
+		set({ loading: true, error: null });
+		try {
+			const { data } = await TodoService.getTodoById(id);
+			set({ currentTodo: data });
+		} catch (error) {
+			set({
+				error: `Не удалось загрузить задачу с ID ${id}: ${(error as Error).message}`,
+			});
+		} finally {
+			set({ loading: false });
+		}
 	},
 
 	addTodo: async (todo): Promise<void> => {

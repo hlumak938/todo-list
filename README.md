@@ -4,25 +4,25 @@
 
 #### Backend:
 
-Express, Typescript, Postresql, Prisma ORM, Passport. </br>
+Express, TypeScript, PostgreSQL, Prisma ORM, Passport. </br>
 
 #### Frontend:
 
-React, Typescript, Zustand, React Final Form, Blueprint, Emotion CSS.
+React, TypeScript, Zustand, React Hook Form, Blueprint, Emotion CSS.
 
 ## Project commands
 
-`cd packages/backend` - jump to your backend folder <br />
+`cd packages/backend` - jump to backend folder <br />
 `yarn` - install dependencies <br />
-`yarn serve` - run your backend <br />
-`cd packages/frontend` - jump to your frontend folder <br />
+`yarn serve` - run backend <br />
+`cd packages/frontend` - jump to frontend folder <br />
 `yarn` - install dependencies <br />
-`yarn dev` - run your frontend <br />
+`yarn dev` - run frontend <br />
 
 ## Features
 
 1. **Todo list - CRUD operations on backend**;
-2. **Todo list - Connect your CRUD operations with frontend**;
+2. **Todo list - CRUD operations with frontend**;
 3. **Authorization (login/signup) backend;**
 4. **Authorization (login/signup) frontend;**
 5. **Filters for todo list by title and statuses (private and completed);**

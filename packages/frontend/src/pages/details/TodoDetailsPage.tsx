@@ -17,17 +17,14 @@ import { useUserStore } from '~store/user.store';
 export const TodoDetailsPage: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
 	const navigate = useNavigate();
-	const { getTodoById, updateTodo, fetchTodos } = useTodoStore();
+	const { getTodoById, updateTodo, currentTodo: todo } = useTodoStore();
 	const { user } = useUserStore();
-	const todo = getTodoById(+id);
 
-	const isOwner = user?.id === todo.userId;
+	const isOwner = user?.id === todo?.userId;
 
 	useEffect(() => {
-		if (!todo) {
-			fetchTodos(false);
-		}
-	}, [todo]);
+		getTodoById(+id);
+	}, []);
 
 	const handleTogglePrivate = async (): Promise<void> => {
 		if (todo) {

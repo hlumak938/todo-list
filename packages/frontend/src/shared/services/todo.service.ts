@@ -30,6 +30,10 @@ class TodoService extends HttpService {
 		return this.get({ url: `todos?${params}` });
 	}
 
+	getTodoById(id: number): Promise<AxiosResponse<ITodo>> {
+		return this.get({ url: `todos/${id}` });
+	}
+
 	createTodo(todo: CreateTodo): Promise<AxiosResponse<ITodo>> {
 		return this.post({
 			url: 'todos',

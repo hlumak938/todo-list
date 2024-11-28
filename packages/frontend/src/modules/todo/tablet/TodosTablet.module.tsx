@@ -18,7 +18,10 @@ const TodosTablet: React.FC<TodoDeviceProps> = ({ todos, onAddTodo }) => {
 
 	return (
 		<>
-			<Slider {...SLIDER_SETTINGS} afterChange={handleAfterChange}>
+			<Slider
+				{...SLIDER_SETTINGS(todos.length)}
+				afterChange={handleAfterChange}
+			>
 				{todos.map((todo) => (
 					<div key={todo.id} className={sliderItemStyle}>
 						<h3>{todo.title}</h3>
