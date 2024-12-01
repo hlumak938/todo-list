@@ -13,14 +13,11 @@ import {
 const EditTodoPage: React.FC = () => {
 	const { id } = useParams<{ id: string }>();
 	const navigate = useNavigate();
-	const { getTodoById, updateTodo, fetchTodos } = useTodoStore();
-	const todo = getTodoById(+id);
+	const { getTodoById, updateTodo, currentTodo: todo } = useTodoStore();
 
 	useEffect(() => {
-		if (!todo) {
-			fetchTodos(false);
-		}
-	}, [todo, fetchTodos]);
+		getTodoById(+id);
+	}, []);
 
 	const handleFormSubmit = async (data: TodoFormValues): Promise<void> => {
 		const { isPrivate, isComplete, ...todoData } = data;
