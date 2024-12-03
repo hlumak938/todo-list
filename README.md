@@ -19,6 +19,15 @@ React, TypeScript, Zustand, React Hook Form, Blueprint, Emotion CSS.
 `yarn` - install dependencies <br />
 `yarn dev` - run frontend <br />
 
+If you keep experiencing something like: **tslint: command not found**
+please do the following:
+
+```
+
+yarn global add tslint typescript
+
+```
+
 ## Features
 
 1. **Todo list - CRUD operations on backend**;
